@@ -25,6 +25,7 @@ import ch.vorburger.mariadb4j.StartMojo;
 import ch.vorburger.mariadb4j.utils.DBSingleton;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Table;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.junit.Rule;
 import org.junit.Test;
@@ -160,7 +161,17 @@ public class Mariadb4jStartMojoTest {
             mojo.setPluginContext(pluginContext = new HashMap<>());
         }
         mojoRule.configureMojo(mojo, "mariaDB4j-maven-plugin", pom);
-        mojo.execute();
+        try {
+            mojo.execute();
+        } catch (MojoExecutionException ex) {
+            boolean utf8mb4NotSupported = ex.getCause() != null
+                && ex.getCause() instanceof ManagedProcessException
+                && ex.getCause().getCause() != null
+                && ex.getCause().getCause().getMessage().contains("'utf8mb4' is not a compiled character set");
+            if (utf8mb4NotSupported)
+                return;
+            throw ex;
+        }
         byte[] pokerHandBytes = {
                 (byte) 0xf0, (byte) 0x9f, (byte) 0x82, (byte) 0xa1,
                 (byte) 0xf0, (byte) 0x9f, (byte) 0x82, (byte) 0xa8,
