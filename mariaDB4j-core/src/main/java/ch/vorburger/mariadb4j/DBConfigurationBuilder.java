@@ -248,6 +248,7 @@ public class DBConfigurationBuilder {
         return this;
     }
 
+    // TO DO: retrieve from file
     protected String _getDatabaseVersion() {
         String databaseVersion = getDatabaseVersion();
         if (databaseVersion == null) {
