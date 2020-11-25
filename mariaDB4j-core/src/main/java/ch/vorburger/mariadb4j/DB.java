@@ -118,9 +118,9 @@ public class DB {
         builder.getEnvironment().put(configuration.getOSLibraryEnvironmentVarName(), libDir.getAbsolutePath());
         builder.setWorkingDirectory(baseDir);
         if (!configuration.isWindows()) {
+            builder.addArgument("--no-defaults"); // *** THIS MUST COME FIRST ***
             builder.addFileArgument("--datadir", dataDir);
             builder.addFileArgument("--basedir", baseDir);
-            builder.addArgument("--no-defaults");
             builder.addArgument("--force");
             builder.addArgument("--skip-name-resolve");
             builder.addArgument("--auth-root-authentication-method=normal");

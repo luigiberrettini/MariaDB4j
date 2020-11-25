@@ -1,15 +1,27 @@
-language: java
-# We need Java 8, even though the source code is still Java 6,
-# because Checkstyle during build is Java 7+ only; and we use
-# OpenJDK instead of Oracle JDK because ya all should only
-# ever use OpenJDK!  (And get Red Hat's support for it, if
-# you use it professionally.)
-jdk:
-  - openjdk8
-# Do *NOT* cache, see https://github.com/vorburger/MariaDB4j/issues/262
-# cache:
-#  directories:
-#  - $HOME/.m2
-#  - .mvn
-install: mvn -DmariaDB.version=10.5.8 -f DBs/pom.xml clean install
-script: mvn package -DmariaDB.series=10.5 -DmariaDB.version=10.5.8 -Dmysql.connector.version=8.0.22 -B -V
+jobs:
+  include:
+    - os: linux
+      dist: focal
+      language: java
+      jdk: openjdk8
+      install: mvn -DmariaDB.version=10.5.8 -f DBs/pom.xml clean install
+      script: mvn package -DmariaDB.series=10.5 -DmariaDB.version=10.5.8 -Dmysql.connector.version=8.0.22 -B -V
+    - os: osx
+      osx_image: xcode12.2
+      language: java
+      install: mvn -DmariaDB.version=10.5.8 -f DBs/pom.xml clean install
+      script: mvn package -DmariaDB.series=10.5 -DmariaDB.version=10.5.8 -Dmysql.connector.version=8.0.22 -B -V
+    - os: windows
+      language: minimal
+      env:
+        - GRAVIS_REPO='https://github.com/DanySK/Gravis-CI.git'
+        - GRAVIS="$HOME/gravis"
+        - JDK='adopt@1.8'
+      before_install:
+        - travis_retry git clone --depth 1 $GRAVIS_REPO $GRAVIS
+        - source $GRAVIS/install-jdk
+        - source $GRAVIS/install-maven
+      install: mvn -DmariaDB.version=10.5.8 -f DBs/pom.xml clean install
+      script: mvn package -DmariaDB.series=10.5 -DmariaDB.version=10.5.8 -Dmysql.connector.version=8.0.22 -B -V
+notifications:
+  email: false
