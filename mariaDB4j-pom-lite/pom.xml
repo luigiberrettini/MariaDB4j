@@ -22,6 +22,11 @@
     <url>https://github.com/vorburger/MariaDB4j</url>
     <inceptionYear>2012</inceptionYear>
 
+	<properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
     <scm>
         <connection>scm:git:https://github.com/vorburger/MariaDB4j.git</connection>
 

@@ -10,11 +10,10 @@
         <relativePath>../../mariaDB4j-pom-lite/pom.xml</relativePath>
     </parent>
 
-	<artifactId>mariaDB4j-db-mac64</artifactId>
-	<version>10.3.25</version>
+	<artifactId>mariaDB4j-db-linux64</artifactId>
+	<version>5.1.67</version>
 
     <properties>
-        <mariaDB.series>10.3</mariaDB.series>
         <mariaDB.version>${project.version}</mariaDB.version>
         <cacheDir>${project.basedir}/../../../tmpDir</cacheDir>
     </properties>
@@ -39,9 +38,8 @@
                                 <property name="project.basedir" value="${project.basedir}" />
                                 <property name="project.build.directory" value="${project.build.directory}" />
                                 <property name="cacheDir" value="${cacheDir}" />
-                                <property name="mariaDB.series" value="${mariaDB.series}" />
                                 <property name="mariaDB.version" value="${mariaDB.version}" />
-                                <ant antfile="${project.basedir}/../../mariaDB4j-db-common/mac64-prepare.xml" />
+                                <ant antfile="${project.basedir}/../../mariaDB4j-db-common/linux64-prepare.xml" />
                             </target>
                         </configuration>
                         <goals>
