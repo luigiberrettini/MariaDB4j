@@ -23,7 +23,7 @@
     <target name="extract" depends="env,download" description="Extract project files">
         <echo message="Extracting zip file..." />
         <unzip src="${cacheDir}/input/mariadb-${mariaDB.version}-winx64.zip"
-               dest="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb-${mariaDB.version}/winx64"
+               dest="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb/winx64"
                overwrite="true">
             <patternset>
                 <include name="mariadb-${mariaDB.version}-winx64/bin/my_print_defaults.exe" />

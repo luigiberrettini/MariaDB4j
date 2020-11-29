@@ -251,17 +251,13 @@ public class DBConfigurationBuilder {
     protected String _getDatabaseVersion() {
         String databaseVersion = getDatabaseVersion();
         if (databaseVersion == null) {
-            if (OSX.equals(getOS()))
-                databaseVersion = "mariadb-10.3.16";
-            else if (LINUX.equals(getOS()))
-                databaseVersion = "mariadb-10.3.16";
-            else if (WIN32.equals(getOS()))
-                databaseVersion = "mariadb-10.3.16";
-            else
-                throw new IllegalStateException(
-                        "OS not directly supported, please use setDatabaseVersion() to set the name "
-                                + "of the package that the binaries are in, for: "
-                                + SystemUtils.OS_VERSION);
+            databaseVersion = "mariadb";
+            String currentOs = getOS();
+            if (!OSX.equals(currentOs) && !LINUX.equals(currentOs) && !WIN32.equals(currentOs)) {
+                throw new IllegalStateException("OS '"
+                    + SystemUtils.OS_VERSION
+                    + "' not supported: use setDatabaseVersion() to specify the package containing the binaries");
+            }
         }
         return databaseVersion;
     }

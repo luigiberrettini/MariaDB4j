@@ -32,18 +32,18 @@
                compression="gzip">
         </untar>
         <echo message="Copying files..." />
-        <copy todir="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb-${mariaDB.version}/osx">
+        <copy todir="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb/osx">
             <fileset dir="${project.build.directory}/mariadb-${mariaDB.version}-osx">
                 <include name="bin/*"/>
                 <include name="share/**/*"/>
             </fileset>
         </copy>
-        <copy todir="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb-${mariaDB.version}/osx/bin" overwrite="yes" >
+        <copy todir="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb/osx/bin" overwrite="yes" >
             <fileset dir="${project.build.directory}/mariadb-${mariaDB.version}-osx/scripts">
                 <include name="*"/>
             </fileset>
         </copy>
         <echo message="Updating chmod for bin files..." />
-        <chmod dir="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb-${mariaDB.version}/osx/bin" perm="ugo+rx" includes="*"/>
+        <chmod dir="${project.build.directory}/generated-resources/ch/vorburger/mariadb4j/mariadb/osx/bin" perm="ugo+rx" includes="*"/>
     </target>
 </project>
