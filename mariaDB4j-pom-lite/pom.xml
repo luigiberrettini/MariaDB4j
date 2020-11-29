@@ -4,15 +4,16 @@
 
     <groupId>ch.vorburger.mariaDB4j</groupId>
     <artifactId>mariaDB4j-pom-lite</artifactId>
-    <!-- This here is NOT a *-SNAPSHOT version, never!
-    
-         Just manually increment this whenever you have to make a change to
-         this pom.xml - which should, normally, be relatively rare!
-         
-         If you do have to change this, remember to adjust the <version> of
-         the <parent> in the current mariaDB4j-pom SNAPSHOT, and in future
-         DBs/mariaDB4j-db-*/pom.xml versions (as those are also always
-         non-SNAPSHOT, existing ones do NOT get changed).
+    <!--
+        This here is NOT a *-SNAPSHOT version, never!
+
+        Just manually increment this whenever you have to make a change to
+        this pom.xml - which should, normally, be relatively rare!
+
+        If you do have to change this, remember to adjust the <version> of
+        the <parent> in the current mariaDB4j-pom SNAPSHOT, and in future
+        DBs/mariaDB4j-db-*/pom.xml versions (as those are also always
+        non-SNAPSHOT, existing ones do NOT get changed).
      -->
     <version>2.2.1</version>
     <packaging>pom</packaging>
@@ -22,12 +23,52 @@
     <url>https://github.com/vorburger/MariaDB4j</url>
     <inceptionYear>2012</inceptionYear>
 
+    <properties>
+        <!--
+            A DB package for each platform is built based on series and version: ../DBs/pom.xml
+            They are a dependency of the mariaDB4j all-in-one artifact: ../mariaDB4j/pom.xml
+
+            Binaries are available for multiple platforms
+
+            MariaDB  5.1.67     Linux   (macOS)   (Windows)
+            MariaDB  5.2.14     Linux   (macOS)    Windows
+            MariaDB  5.3.12     Linux   (macOS)    Windows
+            MariaDB  5.5.68     Linux   (macOS)    Windows
+            MariaDB 10.0.38     Linux    macOS     Windows
+            MariaDB 10.1.47     Linux    macOS     Windows
+            MariaDB 10.2.34     Linux    macOS     Windows
+            MariaDB 10.3.25     Linux    macOS     Windows
+            MariaDB 10.4.15     Linux    macOS     Windows
+            MariaDB 10.5.8      Linux    macOS     Windows
+        -->
+        <mariaDB.version>10.5.8</mariaDB.version>
+        <!--
+            MySQL Connector Java is used in ../mariaDB4j-maven-plugin/pom.xml
+
+            MariaDB  5.1.x     5.1.49
+            MariaDB  5.2.x     8.0.15
+            MariaDB  5.3.x     8.0.15
+            MariaDB  5.5.x     8.0.22
+            MariaDB 10.0.x     8.0.22
+            MariaDB 10.1.x     8.0.22
+            MariaDB 10.2.x     8.0.22
+            MariaDB 10.3.x     8.0.22
+            MariaDB 10.4.x     8.0.22
+            MariaDB 10.5.x     8.0.22
+        -->
+        <mysql.connector.version>8.0.22</mysql.connector.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
     <scm>
         <connection>scm:git:https://github.com/vorburger/MariaDB4j.git</connection>
 
         <url>https://github.com/vorburger/MariaDB4j</url>
-        <!-- Do NOT specify developerConnection & tag here, as those are only used
-             by the maven-release-plugin, which we don't use here and in the db-*/pom.xml -->
+        <!--
+            Do NOT specify developerConnection & tag here, as those are only used
+            by the maven-release-plugin, which we don't use here and in the db-*/pom.xml
+        -->
     </scm>
 
     <licenses>
@@ -109,7 +150,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>com.alexecollins.maven.plugin</groupId>
                 <artifactId>script-maven-plugin</artifactId>
@@ -140,12 +181,12 @@
                              }
                              dirStream.close();
                          }
-        
+
                          File gitRepoRootDir = project.basedir;
                          while (!new File(gitRepoRootDir, ".git").exists() &amp;&amp; gitRepoRootDir.getParentFile() != null) {
                              gitRepoRootDir = gitRepoRootDir.getParentFile();
                          }
-        
+
                          File target = new File(project.build.outputDirectory);
                          target.mkdirs();
                          copy(gitRepoRootDir, "README*", target);
@@ -172,7 +213,7 @@
 
         <pluginManagement>
             <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -240,8 +281,9 @@
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
-        <!-- <repository> isn't needed with nexus-staging-maven-plugin, it somehow
-             has this hard-coded or automatically find sit somehow, IFF <version> is non-SNAPSHOT -->
+        <!--
+            <repository> isn't needed with nexus-staging-maven-plugin, it somehow
+            has this hard-coded or automatically find sit somehow, IFF <version> is non-SNAPSHOT
+        -->
     </distributionManagement>
-
 </project>
