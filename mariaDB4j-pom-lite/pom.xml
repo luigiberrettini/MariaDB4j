@@ -30,16 +30,16 @@
 
             Binaries are available for multiple platforms
 
-            MariaDB  5.1.67     Linux   (macOS)   (Windows)
-            MariaDB  5.2.14     Linux   (macOS)    Windows
-            MariaDB  5.3.12     Linux   (macOS)    Windows
-            MariaDB  5.5.68     Linux   (macOS)    Windows
-            MariaDB 10.0.38     Linux    macOS     Windows
-            MariaDB 10.1.47     Linux    macOS     Windows
-            MariaDB 10.2.34     Linux    macOS     Windows
-            MariaDB 10.3.25     Linux    macOS     Windows
-            MariaDB 10.4.15     Linux    macOS     Windows
-            MariaDB 10.5.8      Linux    macOS     Windows
+            MariaDB  5.1.67     Linux     macOS     Windows
+            MariaDB  5.2.14     Linux     macOS     Windows
+            MariaDB  5.3.12     Linux     macOS     Windows
+            MariaDB  5.5.68     Linux     macOS     Windows
+            MariaDB 10.0.38     Linux     macOS     Windows
+            MariaDB 10.1.47     Linux     macOS     Windows
+            MariaDB 10.2.34     Linux     macOS     Windows
+            MariaDB 10.3.25     Linux     macOS     Windows
+            MariaDB 10.4.15     Linux     macOS     Windows
+            MariaDB 10.5.8      Linux     macOS     Windows
         -->
         <mariaDB.version>10.5.8</mariaDB.version>
         <!--

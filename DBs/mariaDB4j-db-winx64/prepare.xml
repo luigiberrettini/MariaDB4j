@@ -15,6 +15,10 @@
 
     <target name="download" depends="env" description="Download Windows zip file from mariadb.com">
         <echo message="Downloading Windows x64 MariaDB ${mariaDB.version} file..." />
+        <get src="https://github.com/luigiberrettini/mariadb-source-builder/releases/download/v${mariaDB.version}/mariadb-${mariaDB.version}-winx64.zip"
+             dest="${cacheDir}/input/mariadb-${mariaDB.version}-winx64.zip"
+             ignoreerrors="true"
+             skipexisting="true" />
         <get src="https://downloads.mariadb.com/MariaDB/mariadb-${mariaDB.version}/winx64-packages/mariadb-${mariaDB.version}-winx64.zip"
              dest="${cacheDir}/input/mariadb-${mariaDB.version}-winx64.zip"
              skipexisting="true" />
@@ -23,28 +27,45 @@
     <target name="extract" depends="env,download" description="Extract project files">
         <echo message="Extracting zip file..." />
         <unzip src="${cacheDir}/input/mariadb-${mariaDB.version}-winx64.zip"
-               dest="${project.build.directory}/generated-resources/mariadb-${mariaDB.version}/ch/vorburger/mariadb4j/mariadb/winx64"
+               dest="${project.build.directory}/mariadb-${mariaDB.version}-winx64"
                overwrite="true">
             <patternset>
-                <include name="mariadb-${mariaDB.version}-winx64/bin/my_print_defaults.exe" />
-
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mariadb.exe" />
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mariadbd.exe" />
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mariadb-check.exe" />
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mariadb-dump.exe" />
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mariadb-install-db.exe" />
-
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mysql.exe" />
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mysqld.exe" />
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mysqlcheck.exe" />
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mysqldump.exe" />
-                <include name="mariadb-${mariaDB.version}-winx64/bin/mysql_install_db.exe" />
-
                 <include name="mariadb-${mariaDB.version}-winx64/share/**/*" />
+                <include name="mariadb-${mariaDB.version}-winx64/bin/*" />
+                <include name="mariadb-${mariaDB.version}-winx64/scripts/*" />
             </patternset>
             <mapper>
                 <globmapper from="mariadb-${mariaDB.version}-winx64/*" to="*" />
             </mapper>
         </unzip>
+        <echo message="Copying share folders and files..." />
+        <copy todir="${project.build.directory}/generated-resources/mariadb-${mariaDB.version}/ch/vorburger/mariadb4j/mariadb/winx64">
+            <fileset dir="${project.build.directory}/mariadb-${mariaDB.version}-winx64">
+                <include name="share/**/*"/>
+            </fileset>
+        </copy>
+        <echo message="Copying bin files..." />
+        <copy todir="${project.build.directory}/generated-resources/mariadb-${mariaDB.version}/ch/vorburger/mariadb4j/mariadb/winx64/bin">
+            <fileset dir="${project.build.directory}/mariadb-${mariaDB.version}-winx64/bin">
+                <include name="my_print_defaults.exe" />
+
+                <include name="mariadb.exe" />
+                <include name="mariadbd.exe" />
+                <include name="mariadb-check.exe" />
+                <include name="mariadb-dump.exe" />
+                <include name="mariadb-install-db.exe" />
+
+                <include name="mysql.exe" />
+                <include name="mysqld.exe" />
+                <include name="mysqlcheck.exe" />
+                <include name="mysqldump.exe" />
+                <include name="mysql_install_db.exe" />
+            </fileset>
+        </copy>
+        <copy todir="${project.build.directory}/generated-resources/mariadb-${mariaDB.version}/ch/vorburger/mariadb4j/mariadb/winx64/bin">
+            <fileset dir="${project.build.directory}/mariadb-${mariaDB.version}-winx64/scripts">
+                <include name="*" />
+            </fileset>
+        </copy>
     </target>
 </project>

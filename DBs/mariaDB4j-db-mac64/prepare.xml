@@ -15,7 +15,7 @@
 
     <target name="download" depends="env" description="Download Mac file from bintray.com">
         <echo message="Downloading macOS MariaDB ${mariaDB.version} file..." />
-        <get src="https://github.com/luigiberrettini/mariadb-source-builder/releases/download/v${mariaDB.version}/mariadb-macos-${mariaDB.version}.tar.gz"
+        <get src="https://github.com/luigiberrettini/mariadb-source-builder/releases/download/v${mariaDB.version}/mariadb-${mariaDB.version}-macos.tar.gz"
              dest="${cacheDir}/input/mariadb-${mariaDB.version}-osx.tar.gz"
              skipexisting="true" />
         <available property="download.file" file="${cacheDir}/input/download_file"/>
@@ -31,16 +31,35 @@
                dest="${project.build.directory}/mariadb-${mariaDB.version}-osx"
                compression="gzip">
         </untar>
-        <echo message="Copying files..." />
+        <echo message="Copying share folders and files..." />
         <copy todir="${project.build.directory}/generated-resources/mariadb-${mariaDB.version}/ch/vorburger/mariadb4j/mariadb/osx">
             <fileset dir="${project.build.directory}/mariadb-${mariaDB.version}-osx">
-                <include name="bin/*"/>
                 <include name="share/**/*"/>
             </fileset>
         </copy>
-        <copy todir="${project.build.directory}/generated-resources/mariadb-${mariaDB.version}/ch/vorburger/mariadb4j/mariadb/osx/bin" overwrite="yes" >
+        <echo message="Copying bin files..." />
+        <copy todir="${project.build.directory}/generated-resources/mariadb-${mariaDB.version}/ch/vorburger/mariadb4j/mariadb/osx/bin">
+            <fileset dir="${project.build.directory}/mariadb-${mariaDB.version}-osx/bin">
+                <include name="my_print_defaults" />
+
+                <include name="mariadb" />
+                <include name="mariadbd" />
+                <include name="mariadb-check" />
+                <include name="mariadb-dump" />
+                <include name="mariadb-install-db" />
+
+                <include name="mysql" />
+                <include name="mysqld" />
+                <include name="mysqlcheck" />
+                <include name="mysqldump" />
+                <include name="mysql_install_db" />
+
+                <include name="resolveip" />
+            </fileset>
+        </copy>
+        <copy todir="${project.build.directory}/generated-resources/mariadb-${mariaDB.version}/ch/vorburger/mariadb4j/mariadb/osx/bin">
             <fileset dir="${project.build.directory}/mariadb-${mariaDB.version}-osx/scripts">
-                <include name="*"/>
+                <include name="*" />
             </fileset>
         </copy>
         <echo message="Updating chmod for bin files..." />
